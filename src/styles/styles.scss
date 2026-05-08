@@ -1,0 +1,196 @@
+/**
+ *	Styles
+ */
+
+@import 'settings/index';
+@import 'tools/index';
+@import 'generic/index';
+@import 'elements/index';
+@import 'objects/index';
+@import 'components/index';
+@import 'vendors/index';
+@import 'utilities/index';
+
+// Utilities
+@import 'bootstrap/scss/utilities/api';
+
+@import 'custom/index';
+
+
+#invoiceCanvas {
+  width: 43%;
+}
+
+.btn-alert {
+  padding: .8rem 1.8rem;
+}
+
+
+.invoice-check {
+  width: 2em;
+  height: 2em;
+  margin-top: 0em;
+  margin-right: 10px;
+  --bs-form-check-bg: #abb2b9;
+
+  &:checked {
+    background-color: #46bcaa;
+    border-color: #46bcaa;
+  }
+}
+
+.big-switch {
+  width: 5em !important;
+  height: 2.5em
+}
+
+.avatar-group-payed-invoice {
+  .avatar-container {
+    display: flex;
+  }
+}
+
+.form-control .select__control {
+  border: 0;
+  background: transparent;
+}
+
+@for $i from 1 through 1000 {
+  .wpx-#{$i} {
+    width: #{$i}px !important;
+  }
+}
+
+.fs-9 {
+  font-size: 0.9rem !important;
+}
+
+.bg-white-text {
+  background-color: white !important;
+  color: #1f2128;
+}
+
+.formula-info {
+
+  font-size: 13px;
+  font-weight: 600;
+
+}
+
+.fs-13 {
+  font-size: 13px !important;
+}
+
+.fs-12 {
+  font-size: 12px !important;
+}
+
+.fs-1rem {
+  font-size: 1rem !important;
+}
+
+.fs-1_2rem {
+  font-size: 1.2rem !important;
+}
+
+.fs-rem {
+  font-size: 12px;
+}
+
+.form-floating>textarea.form-control {
+  min-height: calc(1.5em + 1rem + calc(var(--bs-border-width) * 2)) !important;
+  height: auto;
+}
+
+/* Float label when input-group contains focused input */
+.form-floating > .input-group:focus-within ~ label,.form-floating > .form-floating > .input-group.has-value ~ label{
+  transform: scale(0.85) translateY(-0.5rem) translateX(0.15rem);
+  opacity: 0.65;
+  z-index: 5;
+}
+
+/* Input padding adjustment */
+.form-floating > .input-group > .form-control {
+  padding: 1rem 1rem;
+  height: calc(3.5rem + calc(var(--bs-border-width) * 2));
+  min-height: calc(3.5rem + calc(var(--bs-border-width) * 2));
+  line-height: 1.25;
+}
+
+/* Float label when input-group has a value */
+.form-floating:has(.input-group > .form-control[value]:not([value=""])) > label {
+  transform: scale(0.85) translateY(-0.5rem) translateX(0.15rem);
+  opacity: 0.65;
+  z-index: 5;
+}
+
+/* Float label when focused */
+.form-floating:has(.input-group:focus-within) > label {
+  transform: scale(0.85) translateY(-0.5rem) translateX(0.15rem);
+  opacity: 0.65;
+  z-index: 5;
+}
+
+/* Padding fix */
+.form-floating:has(.input-group:focus-within) .form-control,
+.form-floating:has(.input-group > .form-control[value]:not([value=""])) .form-control {
+  padding-top: 1.625rem;
+  padding-bottom: 0.625rem;
+}
+
+@media print {
+  .no-print {
+    display: none;
+  }
+}
+
+
+.table-fixed {
+  table-layout: fixed;
+  width: 100%;
+  border-collapse: collapse;
+}
+
+
+/* ================= BOOTSTRAP FLOATING SUPPORT ================= */
+
+.form-floating > .searchable-select > .searchable-select__control {
+  padding: 1rem 1rem;
+  // height: calc(3.5rem + calc(var(--bs-border-width) * 2));
+  // min-height: calc(3.5rem + calc(var(--bs-border-width) * 2));
+  // line-height: 1.25;
+}
+
+/* Float label on focus */
+.form-floating:has(.searchable-select__control:focus-within) > label {
+  transform: scale(0.85) translateY(-0.5rem) translateX(0.15rem);
+  opacity: 0.65;
+  z-index: 5;
+}
+
+/* Float label when value exists */
+.form-floating:has(.searchable-select.has-value) > label {
+  transform: scale(0.85) translateY(-0.5rem) translateX(0.15rem);
+  opacity: 0.65;
+  z-index: 5;
+}
+
+/* Padding adjustment when floating */
+.form-floating:has(.searchable-select.has-value) .searchable-select__control,
+.form-floating:has(.searchable-select__control:focus-within)
+  .searchable-select__control {
+  padding-top: 1.625rem;
+  padding-bottom: 0.625rem;
+}
+/* Float label when focused */
+.form-floating:has(.searchable-select__control:focus-within) > label {
+  transform: scale(0.85) translateY(-0.5rem) translateX(0.15rem);
+  opacity: 0.65;
+}
+
+/* Float label when value exists */
+/* Float label when searchable-select has value (like form-select) */
+.form-floating > .searchable-select.has-value ~ label {
+  transform: scale(0.85) translateY(-0.5rem) translateX(0.15rem);
+  opacity: 0.65;
+}

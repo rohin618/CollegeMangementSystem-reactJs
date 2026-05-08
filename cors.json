@@ -1,0 +1,8 @@
+[
+  {
+    "origin": ["http://localhost:5173", "https://ashtoncare-arm.vercel.app","https://ashtonfinzapp.co.uk/"],
+    "method": ["GET"],
+    "maxAgeSeconds": 3600,
+    "responseHeader": ["Content-Type"]
+  }
+]

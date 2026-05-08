@@ -1,0 +1,197 @@
+$border: #d0d5dd;
+$primary: #2563eb;
+$hover: #f5f7fa;
+$selected: #e8f0ff;
+$muted: #667085;
+
+.searchable-select {
+  position: relative;
+  width: 100%;
+  font-size: 14px;
+  font-family: inherit;
+
+  /* ================= STATES ================= */
+
+  &.is-disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+
+    .searchable-select__control {
+      cursor: not-allowed;
+      background-color: #f8f9fa;
+    }
+
+    .searchable-select__arrow {
+      opacity: 0.5;
+    }
+  }
+
+  &.is-loading {
+    cursor: progress;
+
+    .searchable-select__control {
+      cursor: progress;
+    }
+  }
+
+  /* ================= CONTROL ================= */
+
+  &__control {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+
+    &:hover {
+      border-color: $primary;
+    }
+
+    &:focus-within {
+      border-color: $primary;
+      box-shadow: 0 0 0 2px rgba($primary, 0.15);
+    }
+  }
+
+  /* Disable hover/focus when disabled */
+  &.is-disabled &__control {
+    &:hover {
+      border-color: $border;
+    }
+
+    &:focus-within {
+      box-shadow: none;
+    }
+  }
+
+  /* ================= VALUE ================= */
+
+  &__value {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    flex: 1;
+    min-width: 0;
+  }
+
+  &__placeholder {
+    color: $muted;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* ================= TAG (MULTI) ================= */
+
+  &__tag {
+    display: flex;
+    align-items: center;
+    background: $selected;
+    color: $primary;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 12px;
+    white-space: nowrap;
+
+    span {
+      margin-left: 6px;
+      cursor: pointer;
+      font-weight: bold;
+
+      &:hover {
+        opacity: 0.7;
+      }
+    }
+  }
+
+  /* Prevent tag removal when disabled */
+  &.is-disabled &__tag span {
+    pointer-events: none;
+  }
+
+  /* ================= ARROW ================= */
+
+  &__arrow {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    transition: transform 0.2s ease;
+    color: $muted;
+
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+
+    &--open {
+      transform: rotate(180deg);
+    }
+  }
+
+  /* ================= DROPDOWN ================= */
+
+  &__menu {
+    position: absolute;
+    top: calc(100% + 4px);
+    left: 0;
+    width: 100%;
+    background: #fff;
+    border: 1px solid $border;
+    border-radius: 6px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    z-index: 1050;
+  }
+
+  /* ================= SEARCH ================= */
+
+  &__search {
+    padding: 8px;
+    border-bottom: 1px solid $border;
+
+    input {
+      width: 100%;
+      padding: 6px 8px;
+      border: 1px solid $border;
+      border-radius: 4px;
+      outline: none;
+      font-size: 13px;
+
+      &:focus {
+        border-color: $primary;
+      }
+    }
+  }
+
+  /* ================= OPTIONS ================= */
+
+  &__options {
+    max-height: 240px;
+    overflow-y: auto;
+  }
+
+  &__option {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 10px;
+    cursor: pointer;
+    // border-bottom: 1px solid #d2d2d2;
+
+    &:hover {
+      background-color: $hover;
+    }
+
+    &--selected {
+      background-color: $selected;
+      color: $primary;
+      font-weight: 500;
+    }
+  }
+
+  /* ================= EMPTY ================= */
+
+  &__empty {
+    padding: 12px;
+    text-align: center;
+    color: $muted;
+  }
+}

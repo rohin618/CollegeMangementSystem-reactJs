@@ -1,0 +1,145 @@
+// =====================
+// Variables
+// =====================
+$font-family: Arial, sans-serif;
+$body-bg: #f8f9fa;
+$card-bg: #fff;
+$border-color: #dee2e6;
+$header-border: #000;
+$primary-border: #000;
+$primary-bg: #005884;
+$paid-bg: #198754; // Bootstrap success green
+$paid-text: #fff;
+$pending-bg:#f70707d3;
+$pending-text:#fff;
+
+// =====================
+// Global Styles
+// =====================
+body {
+  // font-family: $font-family;
+  // background: $body-bg;
+  // padding: 40px;
+}
+
+// =====================
+// Invoice Box
+// =====================
+.invoice-box {
+  background: $card-bg;
+  padding: 30px;
+  border: 1px solid $border-color;
+  border-radius: 8px;
+  max-width: 900px;
+  margin: auto;
+   @media print {
+    box-shadow: unset !important;
+    margin-top: 0;
+    border: 0 !important;
+    border-radius: 0;
+      max-width: unset;
+  }
+
+  // -----------------
+  // Header
+  // -----------------
+  .invoice-header {
+    border-bottom: 2px solid $header-border;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+
+    h2 {
+      font-weight: bold;
+    }
+
+    // Alternate styling for Not Paid invoice
+    &.highlighted h2 {
+      background: $primary-bg;
+    }
+  }
+
+  // -----------------
+  // Section Titles
+  // -----------------
+  .section-title {
+    font-weight: bold;
+    margin-top: 25px;
+    margin-bottom: 10px;
+  }
+
+  // -----------------
+  // Borders
+  // -----------------
+  .bottom-border {
+    border-bottom: 1px solid $primary-border;
+  }
+
+  .tab-border {
+    border: 1px solid $primary-border;
+  }
+
+  // -----------------
+  // Tables
+  // -----------------
+  .table {
+    th,
+    td {
+      vertical-align: middle;
+      font-size: 14px;
+    }
+
+    &.table-sm {
+      th,
+      td {
+        padding: 0.4rem;
+      }
+    }
+
+    &.totals-table {
+      td {
+        font-weight: 600;
+        padding: 5px;
+
+        &:last-child {
+          text-align: end;
+        }
+      }
+
+      .bottom-border td {
+        border-bottom: 1px solid $primary-border;
+      }
+
+      .paid-row td:last-child {
+        background: $paid-bg;
+        color: $paid-text;
+        width: 25%;
+        text-align: end;
+      }
+
+      .pending-row td:last-child {
+        background: $pending-bg;
+        color: $pending-text;
+        width: 25%;
+        text-align: end;
+      }
+    }
+
+    &.customer-info-table td {
+      padding: 5px;
+    }
+
+    tbody.tab-borderless td {
+      border: none !important;
+    }
+  }
+
+  // -----------------
+  // Status Backgrounds
+  // -----------------
+.my-bg {
+  background-color: $primary-bg;
+  color: $pending-text;
+  background: $primary-bg;
+}
+
+}

@@ -1,0 +1,234 @@
+.report-page{
+	.bed-header {
+	background: #fff;
+	border-bottom: 1px solid #e5e7eb;
+	position: sticky;
+	top: 0;
+	z-index: 10;
+	padding: 1.5rem 2rem;
+}
+
+.header-title {
+	font-size: 1.5rem;
+	font-weight: 600;
+	margin: 0;
+}
+
+.header-subtitle {
+	font-size: 0.875rem;
+	color: #6b7280;
+}
+
+.btn-primary {
+	background: linear-gradient(to right, #16a34a, #15803d);
+	color: #fff;
+	border: none;
+	padding: 0.5rem 1rem;
+	border-radius: 6px;
+	cursor: pointer;
+}
+
+.main-content {
+	padding: 2rem;
+}
+
+.card {
+	background: #fff;
+	border-radius: 0.5rem;
+	padding: 1.5rem;
+	margin-bottom: 1.5rem;
+	border: 1px solid #e5e7eb;
+}
+
+.table-container {
+	overflow-x: auto;
+}
+
+table {
+	border-collapse: collapse;
+	width: 100%;
+	font-size: 0.875rem;
+}
+
+th,
+td {
+	border: 1px solid #e5e7eb;
+	padding: 0.5rem;
+	text-align: center;
+}
+
+th {
+	background: #f3f4f6;
+	font-weight: 600;
+}
+
+.sticky {
+	position: sticky;
+	background: #fff;
+	z-index: 5;
+}
+
+.col-room {
+	left: 0;
+	min-width: 80px;
+}
+
+.col-name {
+	left: 80px;
+	min-width: 250px;
+	text-align: left;
+}
+
+.col-fee {
+	left: 330px;
+	min-width: 120px;
+}
+
+.col-fund {
+	left: 450px;
+	min-width: 150px;
+}
+
+.resident-info {
+	display: flex;
+	gap: 0.75rem;
+	background: #f9fafb;
+	padding: 0.5rem;
+	border-radius: 0.5rem;
+}
+
+.avatar {
+	width: 36px;
+	height: 36px;
+	border-radius: 50%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-weight: 600;
+	background: #dbeafe;
+	color: #1e40af;
+}
+
+.resident-name {
+	font-weight: 500;
+}
+
+.resident-dates {
+	font-size: 0.75rem;
+	color: #6b7280;
+}
+
+.occupied-primary {
+	background: #dcfce7;
+	color: #15803d;
+}
+
+.occupied-secondary {
+	background: #dbeafe;
+	// color: #1e40af;
+}
+
+.occupiedWithBlockBed-primary {
+	background: #ffe8ef ;
+	color: #ffa2c0 ;
+}
+
+.occupiedWithBlockBed-secondary {
+	background: #ffe8ef ;
+	// color: #1e40af;
+}
+
+.start {
+	border-left: 4px solid #3b82f6;
+}
+
+.end {
+	border-right: 4px solid #ef4444;
+}
+
+.vacant {
+	background: #f9fafb;
+}
+
+.summary-row {
+	font-weight: 600;
+}
+
+.total-occupied {
+	background: #fed7aa;
+}
+
+.total-vacant {
+	background: #bfdbfe;
+}
+
+.occupancy-rate {
+	background: #e9d5ff;
+}
+
+.stats-grid {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	gap: 1rem;
+}
+
+.stat-card {
+	background: #fff;
+	padding: 1.5rem;
+	border-radius: 0.5rem;
+	border: 1px solid #e5e7eb;
+}
+
+.stat-label {
+	font-size: 0.875rem;
+	color: #6b7280;
+}
+
+.stat-value {
+	font-size: 1.5rem;
+	font-weight: 600;
+}
+
+/* ===== Legend Styles ===== */
+.legend-row {
+	font-size: 0.875rem;
+}
+
+.legend-item {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	color: #111827;
+}
+
+.legend-box {
+	width: 18px;
+	height: 18px;
+	border-radius: 4px;
+	display: inline-block;
+}
+
+/* Matches your occupancy grid */
+.legend-start {
+	background: #dcfce7;
+	border-left: 4px solid #3b82f6;
+}
+
+.legend-end {
+	background: #dcfce7;
+	border-left: 4px solid #ef4444;
+}
+
+.legend-different {
+	background: #dbeafe;
+}
+
+.legend-vacant {
+	background: #f3f4f6;
+}
+
+.left-footer{
+	left:0;
+}
+
+}

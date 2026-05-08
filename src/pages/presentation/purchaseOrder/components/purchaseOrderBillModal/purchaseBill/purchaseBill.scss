@@ -1,0 +1,182 @@
+// =====================
+// Variables (SAME AS INVOICE)
+// =====================
+$font-family: Arial, sans-serif;
+$body-bg: #f8f9fa;
+$card-bg: #fff;
+$border-color: #dee2e6;
+$header-border: #000;
+$primary-border: #000;
+$primary-bg: #005884;
+$paid-bg: #198754;
+$paid-text: #fff;
+$pending-bg: #f70707d3;
+$pending-text: #fff;
+
+// =====================
+// Purchase Bill Box
+// =====================
+.purchase-bill-box {
+  background: $card-bg;
+  padding: 30px;
+  border: 1px solid $border-color;
+  border-radius: 8px;
+  max-width: 1000px;
+  margin: auto;
+
+  @media print {
+    box-shadow: unset !important;
+    margin-top: 0;
+    border: 0 !important;
+    border-radius: 0;
+    max-width: unset;
+  }
+
+  // -----------------
+  // Header
+  // -----------------
+  .bill-header {
+    border-bottom: 2px solid $header-border;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    text-align: center;
+
+    h2 {
+      font-weight: bold;
+      background: $primary-bg;
+      color: $pending-text;
+      padding: 8px 0;
+    }
+  }
+
+  .vendor-info,.company-info {
+
+    p{
+      font-size: 14px;
+      margin:2px;
+      
+    }
+    .label{
+      font-weight: 500;
+    }
+  }
+
+  // -----------------
+  // Logo
+  // -----------------
+  .bill-logo {
+    float: right;
+    max-height: 100px;
+    max-width: 220px;
+    margin-bottom: 10px;
+  }
+
+  // -----------------
+  // Section Titles
+  // -----------------
+  .section-title {
+    font-weight: bold;
+    margin-top: 25px;
+    margin-bottom: 10px;
+  }
+
+  // -----------------
+  // Company / Vendor Info
+  // -----------------
+  .info-block {
+    margin-bottom: 20px;
+
+    p {
+      margin-bottom: 3px;
+      font-size: 16px;
+    }
+  }
+
+  // -----------------
+  // Tables (COMMON)
+  // -----------------
+  .table {
+    th,
+    td {
+      vertical-align: middle;
+      font-size: 14px;
+    }
+
+    &.table-sm {
+      th,
+      td {
+        padding: 0.4rem;
+      }
+    }
+  }
+
+  // -----------------
+  // Purchase Items Table
+  // -----------------
+  .purchase-table {
+    thead {
+      th {
+        background: $primary-bg;
+        color: $pending-text;
+        text-align: center;
+        border: 1px solid $primary-border;
+      }
+    }
+
+    tbody {
+      td {
+        border: 1px solid $primary-border;
+      }
+    }
+  }
+
+  // -----------------
+  // Totals Table
+  // -----------------
+  .totals-table {
+    width: 45%;
+    margin-left: auto;
+
+    td {
+      font-weight: 600;
+      padding: 6px;
+    }
+
+    tr:last-child td {
+      border-top: 2px solid $primary-border;
+      font-size: 16px;
+      font-weight: bold;
+    }
+
+    td:last-child {
+      text-align: end;
+    }
+  }
+
+  // -----------------
+  // VAT Summary Table
+  // -----------------
+  .vat-table {
+    thead th {
+      background: $primary-bg;
+      color: $pending-text;
+      text-align: center;
+      border: 1px solid $primary-border;
+    }
+
+    tbody td {
+      border: 1px solid $primary-border;
+      text-align: center;
+    }
+  }
+
+  // -----------------
+  // Bank Details
+  // -----------------
+  .bank-details {
+    p {
+      margin-bottom: 4px;
+      font-size: 14px;
+    }
+  }
+}

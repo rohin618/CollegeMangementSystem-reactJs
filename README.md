@@ -1,73 +1,62 @@
-# React + TypeScript + Vite
+# Facit | React Admin Dashboard Template V4.4.2
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+#### Required files (Checked ones should definitely be in your project)
+- [x] public[^1]
+- [x] src[^1]
+- [ ] SvgIcons
+- [x] .env[^1]
+- [x] .env.development[^1]
+- [x] .env.production[^1]
+- [ ] .eslintignore[^2]
+- [ ] .eslintrc[^2]
+- [ ] .gitattributes
+- [ ] .gitignore
+- [ ] .prettierignore[^3]
+- [ ] .prettierrc[^3]
+- [ ] .stylelintignore[^4]
+- [ ] .stylelintrc[^4]
+- [x] .svgrrc[^1]
+- [ ] LICENSE
+- [x] package.json[^1]
+- [ ] package-lock.json[^5]
+- [ ] README.md
+- [ ] yarn.lock[^6]
+- [x] tsconfig.json
+- [x] tsconfig.node.json
+- [x] vite.config.ts
+- [x] node_modules[^1]
 
-Currently, two official plugins are available:
+[^1]: These files or folders are absolutely necessary for the project to work properly.
+[^2]: You can update the ESLint settings or delete them if you don't want to use them.
+[^3]: You can update the Prettier settings or delete them if you don't want to use them.
+[^4]: You can update the Stylelint settings or delete them if you don't want to use them.
+[^5]: Required if you're using **npm**, you can delete it if you're using **yarn**.
+[^6]: Required if you're using **yarn**, you can delete it if you're using **npm**.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Node
+Node version must be 16 or higher.
 
-## React Compiler
+To continue changing what you see in the demo
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+```cd facit```
 
-## Expanding the ESLint configuration
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### npm
+```npm install --legacy-peer-deps```
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+or 
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+### Yarn
+```yarn install```
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+Inside the newly created project, you can run some built-in commands:
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### `npm run dev` or `yarn dev`
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+Runs the app in development mode.<br>
+Open [http://127.0.0.1:5173](http://127.0.0.1:5173) to view it in the browser.
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+
+### Detailed information on how to use it is given at [facit.omtanke.studio](https://facit.omtanke.studio/) or [facit-story.omtanke.studio](https://facit-story.omtanke.studio/). If you have questions, you can get support from us 24/7.
+
+
