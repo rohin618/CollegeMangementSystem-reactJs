@@ -15,7 +15,7 @@ import ThemeContext from '../../contexts/themeContext';
 import {SALUTATION_LIST} from '../../common/data/option';
 import {getLabelByValue} from '../../helpers/helpers';
 
-const User = ({currentUser}:any) => {
+const 	User = ({currentUser}:any) => {
 	const { width } = useWindowSize();
 	const { setAsideStatus } = useContext(ThemeContext);
 	const {logout } = useAuth();

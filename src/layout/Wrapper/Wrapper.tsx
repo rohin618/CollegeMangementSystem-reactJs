@@ -1,4 +1,5 @@
 import React, { FC, ReactNode, useContext } from 'react';
+import { Provider } from 'react-redux';
 import classNames from 'classnames';
 import Content from '../Content/Content';
 import WrapperOverlay from './WrapperOverlay';
@@ -7,6 +8,7 @@ import FooterRoutes from '../Footer/FooterRoutes';
 import ThemeContext from '../../contexts/themeContext';
 import { MasterDataProvider } from '../../contexts/mastersContext';
 import { AuthContextProvider } from '../../contexts/authContext';
+import { store } from '../../store/store';
 
 interface IWrapperContainerProps {
 	children: ReactNode;
@@ -32,12 +34,14 @@ const Wrapper = () => {
 		<>
 			<AuthContextProvider>
 				{/* <MasterDataProvider> */}
+				<Provider store={store}>
 					<WrapperContainer>
 						<HeaderRoutes />
 						<Content />
 						<FooterRoutes />
 					</WrapperContainer>
 					<WrapperOverlay />
+					</Provider>
 				{/* </MasterDataProvider> */}
 			</AuthContextProvider>
 		</>

@@ -5,7 +5,7 @@ import useDeviceScreen from '../../../hooks/useDeviceScreen';
 import Avatar from '../../../components/Avatar';
 import { useGetCurrentUser, useLocalStorageSubscribe } from '../../../hooks';
 import { getLabelByValue, getUserMappedCompanyId, setStorage } from '../../../helpers/helpers';
-import { SALUTATION_LIST } from '../../../common/data/option';
+import { SALUTATION_LIST, USER_ROLE_LIST } from '../../../common/data/option';
 import { useQuery } from '@tanstack/react-query';
 import { getAllCompany } from '../../../common/api/company';
 import { EXIST_SESSION_STORAGE_NAMES, NOTIFICATION_STATUS } from '../../../common/constant';
@@ -78,37 +78,11 @@ const DefaultHeader = () => {
 		size: 'lg',
 	};
 
-	const {
-		data: companyList = [],
-		isLoading,
-		isError,
-		error,
-	} = useQuery({
-		queryKey: ['companyList', { ids: currentUser?.companyIds }],
-		queryFn: () => getAllCompany({ companyIds: currentUser?.companyIds }),
-		enabled: currentUser?.companyIds?.length > 0,
-	});
-
-	// Memoizing matchedCompany to optimize re-renders
-	useMemo(() => {
-		if (companyList.length && resolvedCompanyId) {
-			const company = companyList.find((company: any) => company.id === resolvedCompanyId);
-			setStorage(EXIST_SESSION_STORAGE_NAMES.CURENT_COMPANY_ID, company);
-			setMatchedCompany(company);
-		}
-	}, [companyList, resolvedCompanyId]);
-
 	useLocalStorageSubscribe((event: any) => {
 		if (event.key === EXIST_SESSION_STORAGE_NAMES.CURENT_COMPANY_ID) {
 			setMatchedCompany(JSON.parse(event.newValue));
 		}
 	});
-
-	if (isError) {
-		return (
-			<div>Error: {error?.message || 'An error occurred while loading company data.'}</div>
-		);
-	}
 
 	// Fallback in case no matched company is found
 	// if (!matchedCompany) {
@@ -135,21 +109,7 @@ const DefaultHeader = () => {
 
 	return (
 		<Header>
-			<HeaderLeft>
-				{isLoading ? (
-					<h4>Loading...</h4>
-				) : (
-					<h4>
-						{matchedCompany?.tradeName || 'No company found.'}
-						<Icon
-							icon='SwitchAccount'
-							className='brand-aside-toggle-close'
-							onClick={() => setOpenSwitchCompany(true)}
-							style={{ cursor: 'pointer', marginLeft: '10px' }}
-						/>
-					</h4>
-				)}
-			</HeaderLeft>
+			<HeaderLeft>CMS</HeaderLeft>
 			<HeaderRight>
 				<div className='row'>
 					<div className='col-auto'>
@@ -238,7 +198,7 @@ const DefaultHeader = () => {
 							className='btn-only-icon position-relative'
 							aria-label='Notifications'
 							onClick={handleOpenOrCloseNotificationModal}>
-							{hasUnreadNotifications  && (
+							{hasUnreadNotifications && (
 								<Popovers desc='You have unread notifications' trigger='hover'>
 									<span className='position-absolute top-0 start-100 translate-middle badge border border-light rounded-circle bg-danger p-2'>
 										<span className='visually-hidden'>
@@ -253,21 +213,21 @@ const DefaultHeader = () => {
 					<div className='col d-flex align-items-center'>
 						<div className='me-3'>
 							<Avatar
-								// src='https://facit-zen.omtanke.studio/static/media/wanna1.51c02a1922c3e8783871.webp'
 								size={48}
 								color='primary'
-								userName={currentUser?.name || 'User'}
+								userName={currentUser?.username || 'User'}
 							/>
 						</div>
+
 						<div>
 							<div className='fw-bold fs-6 mb-0'>
-								{`${getLabelByValue(
-									SALUTATION_LIST,
-									matchedCompany?.salutation || currentUser?.salutation,
-								)} ${currentUser?.name || currentUser?.name}`}
+								{` ${
+									currentUser?.username || 'User'
+								}`}
 							</div>
+
 							<div className='text-muted'>
-								<small>U{currentUser?.code}</small>
+								<small>{getLabelByValue(USER_ROLE_LIST, currentUser?.role)}</small>
 							</div>
 						</div>
 					</div>
@@ -280,16 +240,8 @@ const DefaultHeader = () => {
 					/>
 				</div>
 			</HeaderRight>
-			<SwitchCompanyModal
-				isOpen={openSwitchCompany}
-				toggle={() => setOpenSwitchCompany(false)}
-				companyList={companyList}
-				onSwitch={handleSwitchCompany}
-				isLoadingCompanyList={isLoading}
-				isErrorCompanyList={isError}
-				errorCompanyLoading={error}
-			/>
-			<AdvanceCreditForm
+
+			{/* <AdvanceCreditForm
 				isOpen={isOpenAddAdvanceModel}
 				toggle={handleOpenCreateAdvanceModal}
 			/>
@@ -299,13 +251,13 @@ const DefaultHeader = () => {
 				toggle={toggleInvoiceEditForm}
 				isOpen={isInvoiceEditFormOpen}
 				onSave={toggleInvoiceEditForm}
-			/>
+			/>*/}
 			<NotificationModal
 				isOpen={isNotificationOpen}
 				toggle={handleOpenOrCloseNotificationModal}
 				notifications={notifications}
 				hasUnreadNotifications={hasUnreadNotifications}
-			/>
+			/> 
 		</Header>
 	);
 };

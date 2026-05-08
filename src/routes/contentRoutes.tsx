@@ -12,9 +12,8 @@ export type AppRoute = RouteProps & {
 // 🔹 Auth
 const Login = lazy(() => import('../pages/presentation/auth/Login'));
 const LoginCompany = lazy(() => import('../pages/presentation/auth/loginCompany'));
-const DummyPage = lazy(() => import('../pages/presentation/dummy'));
+const UserManagementPage = lazy(() => import('../pages/presentation/userManagement'));
 
-// 🔹 Dashboar
 const presentation: AppRoute[] = [
 	{ path: authMenu.login.path, element: <Login />, isPublic: true },
 	{ path: authMenu.loginCompany.path, element: <LoginCompany />, isPublic: false },
@@ -23,7 +22,7 @@ const presentation: AppRoute[] = [
 	// { path: pagesMenu.users.path, element: <Users />, isPublic: false },
 
 
-	{ path: '/dummypage', element: <DummyPage />, isPublic: false },
+	{ path: pagesMenu.userManagement.path, element: <UserManagementPage/>, isPublic: false },
 ];
 
 export default presentation;

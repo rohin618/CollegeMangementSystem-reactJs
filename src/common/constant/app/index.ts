@@ -601,3 +601,14 @@ export const DEBIT_NOTE_STATUS = {
   SETTLED: 3,
   CANCELLED: 4,
 } as const;
+
+
+
+// CMS
+
+export const USER_ROLE = {
+  SUPER_ADMIN: 'SUPER_ADMIN',
+  ADMIN: 'ADMIN',
+  FACULTY: 'FACULTY',
+  STUDENT: 'STUDENT',
+} as const;

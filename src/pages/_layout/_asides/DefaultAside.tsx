@@ -1,90 +1,77 @@
-import React, { ReactNode, useContext, useEffect, useState } from 'react';
-import classNames from 'classnames';
-import { useTranslation } from 'react-i18next';
+import React, { useContext, useState } from 'react';
 import Brand from '../../../layout/Brand/Brand';
-import Navigation, { NavigationLine } from '../../../layout/Navigation/Navigation';
+import Navigation from '../../../layout/Navigation/Navigation';
 import User from '../../../layout/User/User';
-import {
-	// componentPagesMenu,
-	pagesMenu,
-} from '../../../menu';
+import { pagesMenu } from '../../../menu';
 import ThemeContext from '../../../contexts/themeContext';
-
-import useDarkMode from '../../../hooks/useDarkMode';
 import Aside, { AsideBody, AsideFoot, AsideHead } from '../../../layout/Aside/Aside';
-import { getStorage } from '../../../helpers/helpers';
-import { EXIST_SESSION_STORAGE_NAMES, USER_TYPE } from '../../../common/constant';
 import { useGetCurrentUser } from '../../../hooks';
+import { USER_ROLE } from '../../../common/constant/app';
 
 const DefaultAside = () => {
 	const { asideStatus, setAsideStatus } = useContext(ThemeContext);
 	const currentUser = useGetCurrentUser();
 
-	const [doc, setDoc] = useState(
+	const [doc] = useState(
 		localStorage.getItem('facit_asideDocStatus') === 'true' || false,
 	);
 
+	const filterMenuByRole = (menu: any, role?: string) => {
+		if (!role) return {};
 
- const curentUser = getStorage(EXIST_SESSION_STORAGE_NAMES.CURRENT_USER_INFO);
-
-	const filterMenuByRole = (menu: any, role: number) => {
-		const fullAccessRoles:any = [
-			USER_TYPE.SUPER_ADMIN,
-			USER_TYPE.OPERATIONS_MANAGER,
-			USER_TYPE.ACCOUNTS_MANAGER,
-			USER_TYPE.FINANCE_EXECUTIVE,
-		];
-
-		// 🔹 Purchase Officer → ONLY PO & Debit
-		if (role === USER_TYPE.PURCHASE_OFFICER) {
-			return {
-				purchaseOrder: menu.purchaseOrder,
-				debitNote: menu.debitNote,
-				masters: menu.masters,
-			};
-		}
-
-		// 🔹 Full Access
-		if (fullAccessRoles.includes(role)) {
+		// Super Admin -> full access
+		if (role === USER_ROLE.SUPER_ADMIN) {
 			return menu;
 		}
 
-		// 🔹 Billing → hide PO & Debit
-		if (role === USER_TYPE.BILLING_EXECUTIVE) {
-			const { purchaseOrder, debitNote, ...rest } = menu;
-			return rest;
+		// Admin -> almost full access
+		if (role === USER_ROLE.ADMIN) {
+			return {
+				dashboard: menu.dashboard,
+				students: menu.students,
+				faculty: menu.faculty,
+				courses: menu.courses,
+				departments: menu.departments,
+				attendance: menu.attendance,
+			};
+		}
+
+		// Faculty access
+		if (role === USER_ROLE.FACULTY) {
+			return {
+				dashboard: menu.dashboard,
+				students: menu.students,
+				attendance: menu.attendance,
+				courses: menu.courses,
+			};
+		}
+
+		// Student access
+		if (role === USER_ROLE.STUDENT) {
+			return {
+				dashboard: menu.dashboard,
+				courses: menu.courses,
+				attendance: menu.attendance,
+				profile: menu.profile,
+			};
 		}
 
 		return {};
 	};
 
-
-	 const filteredMenu = filterMenuByRole(pagesMenu, curentUser?.userType);
-	 console.log('filteredMenu-===',pagesMenu)
-
+	const filteredMenu = filterMenuByRole(pagesMenu, currentUser?.role);
 
 	return (
 		<Aside>
 			<AsideHead>
 				<Brand asideStatus={asideStatus} setAsideStatus={setAsideStatus} />
 			</AsideHead>
+
 			<AsideBody>
-				{!doc && (
-					<>
-						<Navigation menu={filteredMenu} id='aside-dashboard' />
-						{/* <NavigationLine />
-						<Navigation menu={demoPagesMenu} id='aside-demo-pages' />
-						<NavigationLine />
-						<Navigation menu={pageLayoutTypesPagesMenu} id='aside-menu' /> */}
-					</>
-				)}
-
-
-
-
+				{!doc && <Navigation menu={filteredMenu} id='aside-dashboard' />}
 			</AsideBody>
-			<AsideFoot>
 
+			<AsideFoot>
 				<User currentUser={currentUser} />
 			</AsideFoot>
 		</Aside>

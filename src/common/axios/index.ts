@@ -1,4 +1,5 @@
 import axios from "axios";
+import { EXIST_SESSION_STORAGE_NAMES } from "../constant";
 
 const api = axios.create({
   baseURL: "http://localhost:8080/api",
@@ -10,7 +11,7 @@ const api = axios.create({
 
 api.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem(EXIST_SESSION_STORAGE_NAMES.AUTH_TOKEN_CMS);
 
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
@@ -25,7 +26,7 @@ api.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response?.status === 401) {
-      localStorage.removeItem("token");
+      localStorage.removeItem(EXIST_SESSION_STORAGE_NAMES.AUTH_TOKEN_CMS);
       window.location.href = "/login";
     }
 

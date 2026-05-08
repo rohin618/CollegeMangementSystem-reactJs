@@ -3,4 +3,9 @@ export const EXIST_SESSION_STORAGE_NAMES = {
   AUTH_TOKEN: 'authToken',              // optional auth token
   TEMP_DATA: 'tempData',                // any temporary data
   CURENT_COMPANY_ID: 'curentCompanyId',                // any temporary data
+
+
+
+  AUTH_TOKEN_CMS: 'authTokenCMS',              // optional auth token for CMS
+  
 };
