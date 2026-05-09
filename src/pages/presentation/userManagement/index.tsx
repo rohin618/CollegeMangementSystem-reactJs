@@ -9,74 +9,141 @@ import {
 import Icon from '../../../components/icon';
 import { Popovers, Button, Input } from '../../../components/bootstrap';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import CreateUsersModal from './components/createUserModal';
+import { useInfiniteQuery, useMutation } from '@tanstack/react-query';
 
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchUsers } from '../../../features/users/userThunk';
-import { RootState } from '../../../store/store';
+import CreateUsersModal from './components/createUserModal';
 import UserList from './components/userList';
 
+
+import { useRemoveInfiniteQueryItemById } from '../../../hooks/useRemoveInfiniteQueryItemById';
+import { useUpdateInfiniteQueryItemById } from '../../../hooks/useUpdateInfiniteQueryItemById';
+import { deleteUserById, getPaginatedUsers } from '../../../common/api/userManagement';
+import { showAlert } from '../../../helpers/alerts';
+
+const QUERY_KEY = {
+	USERS: 'USERS',
+};
+
+
+
+const useDebounce = (value: string, delay = 500) => {
+	const [debouncedValue, setDebouncedValue] = useState(value);
+
+	useEffect(() => {
+		const timer = setTimeout(() => {
+			setDebouncedValue(value);
+		}, delay);
+
+		return () => clearTimeout(timer);
+	}, [value, delay]);
+
+	return debouncedValue;
+};
+
 const UserManagementPage = () => {
-	const [isFilterOpen, setFilterOpen] = useState<Boolean>(false);
+	const [isFilterOpen, setFilterOpen] = useState(false);
 	const [searchParams] = useSearchParams();
 	const statusParam = searchParams.get('status');
 
-	const dispatch = useDispatch();
-	const { users, loading } = useSelector((state: RootState) => state.users);
-
-	useEffect(() => {
-		dispatch(fetchUsers() as any);
-	}, []);
+	const [search, setSearch] = useState('');
+	const debouncedSearch = useDebounce(search, 500);
 
 	const [isCreateUserModalOpen, setIsCreateUserModalOpen] = useState(false);
+	const [editUserData, setEditUserData] = useState<any>(null);
+
 	const toggleCreateUserModal = () => {
-		setIsCreateUserModalOpen(!isCreateUserModalOpen);
+		setIsCreateUserModalOpen((prev) => !prev);
 	};
-	const [filters, setFilters] = useState({});
 
-	useEffect(() => {
-		setFilters((prev) => ({
-			...prev,
-			residentStatus: statusParam ? statusParam : '',
-		}));
-		statusParam && setFilterOpen(true);
-	}, [statusParam]);
+	const {
+		data,
+		isLoading,
+		fetchNextPage,
+		hasNextPage,
+		isFetchingNextPage,
+	} = useInfiniteQuery({
+		queryKey: [QUERY_KEY.USERS, debouncedSearch],
+		queryFn: ({ pageParam }) =>
+			getPaginatedUsers({
+				pageParam,
+				search: debouncedSearch,
+			}),
+		initialPageParam: 0,
+		getNextPageParam: (lastPage) =>
+			lastPage.last ? undefined : lastPage.pageNumber + 1,
+		staleTime: 5 * 60 * 1000,
+	});
 
-	const handleFilterChange = (key: string, value: any) => {
-		if (key === 'RESET') {
-			setFilters({});
-			return;
-		}
-		setFilters((prev) => {
-			if (key === 'fundSource') {
-				return { ...prev, fundSource: value, laId: '', icbId: '' };
-			}
-			return { ...prev, [key]: value };
+	const updateUserCache = useUpdateInfiniteQueryItemById<any>([
+		QUERY_KEY.USERS,
+		debouncedSearch,
+	]);
+
+	const { removeItemById } = useRemoveInfiniteQueryItemById([
+		QUERY_KEY.USERS,
+		debouncedSearch,
+	]);
+
+	const deleteMutation = useMutation({
+		mutationFn: deleteUserById,
+		onSuccess: (_, userId) => {
+			removeItemById(userId);
+		},
+	});
+
+	const users = useMemo(() => {
+		return data?.pages?.flatMap((page: any) => page.content) || [];
+	}, [data]);
+
+	const handleEdit = (user: any) => {
+		setEditUserData(user);
+		setIsCreateUserModalOpen(true);
+	};
+
+	const handleDelete = (user: any) => {
+		showAlert({
+			title: 'Are you sure?',
+			text: `You are about to delete ${user.username}. This action cannot be reverted.`,
+			icon: 'warning',
+			showCancelButton: true,
+			confirmButtonText: 'Yes, delete it!',
+			cancelButtonText: 'Cancel',
+
+			onConfirm: async () => {
+				await deleteMutation.mutateAsync(user.id);
+			},
 		});
 	};
 
+	const handleModalClose = () => {
+		setEditUserData(null);
+		setIsCreateUserModalOpen(false);
+	};
+
 	return (
-		<PageWrapper title={'Resident'}>
+		<PageWrapper title='Users'>
 			<SubHeader>
 				<SubHeaderLeft>
 					<label
 						className='border-0 bg-transparent cursor-pointer me-0'
-						htmlFor='residentName'>
+						htmlFor='userSearch'>
 						<Icon icon='Search' size='2x' color='primary' />
 					</label>
+
 					<Input
-						id='residentName'
+						id='userSearch'
 						type='search'
 						className='border-0 shadow-none bg-transparent'
-						placeholder='Search Resident by name...'
-						onChange={(e: any) => handleFilterChange('residentName', e.target.value)}
-						// value={filters.residentName}
+						placeholder='Search User by name...'
+						value={search}
+						onChange={(e: any) => setSearch(e.target.value)}
 					/>
-					{/* <SubheaderSeparator /> */}
+
 					<SubheaderSeparator />
 				</SubHeaderLeft>
+
 				<SubHeaderRight>
 					<Button
 						icon='FilterAlt'
@@ -87,20 +154,43 @@ const UserManagementPage = () => {
 						onClick={() => setFilterOpen(!isFilterOpen)}>
 						<Popovers desc='Filtering applied' trigger='hover'>
 							<span className='position-absolute top-0 start-100 translate-middle badge border border-light rounded-circle bg-danger p-2'>
-								<span className='visually-hidden'>there is filtering</span>
+								<span className='visually-hidden'>filter active</span>
 							</span>
 						</Popovers>
 					</Button>
+
 					<SubheaderSeparator />
 
-					<Button color='info' icon='AddCircle' isLight onClick={toggleCreateUserModal}>
+					<Button
+						color='info'
+						icon='AddCircle'
+						isLight
+						onClick={() => {
+							setEditUserData(null);
+							toggleCreateUserModal();
+						}}>
 						Add New User
 					</Button>
 				</SubHeaderRight>
 			</SubHeader>
+
 			<Page container='fluid'>
-                <UserList users={users} isLoading={loading} />
-				<CreateUsersModal isOpen={isCreateUserModalOpen} toggle={toggleCreateUserModal} />
+				<UserList
+					users={users}
+					isLoading={isLoading}
+					hasNextPage={hasNextPage}
+					isFetchingNextPage={isFetchingNextPage}
+					fetchNextPage={fetchNextPage}
+					onEdit={handleEdit}
+					onDelete={handleDelete}
+				/>
+
+				<CreateUsersModal
+					isOpen={isCreateUserModalOpen}
+					toggle={handleModalClose}
+					editUserData={editUserData}
+					onUpdateSuccess={updateUserCache}
+				/>
 			</Page>
 		</PageWrapper>
 	);

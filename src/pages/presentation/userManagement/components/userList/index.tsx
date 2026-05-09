@@ -13,14 +13,23 @@ import {
 	DropdownMenu,
 	DropdownToggle,
 } from '../../../../../components/bootstrap';
-import { DataTable } from '../../../../../components/common';
+
 import useDarkMode from '../../../../../hooks/useDarkMode';
-import { getFirstLetter, getLabelByValue, getColorByValue } from '../../../../../helpers/helpers';
-import { USER_ROLE_LIST, USER_STATUS_LIST } from '../../../../../common/data/option';
+import {
+	getFirstLetter,
+	getLabelByValue,
+	getColorByValue,
+} from '../../../../../helpers/helpers';
+
+import { USER_ROLE_LIST } from '../../../../../common/data/option';
+import InfiniteDataTable from '../../../../../components/common/infinixDataTable';
 
 type Props = {
 	users: any[];
 	isLoading: boolean;
+	hasNextPage?: boolean;
+	isFetchingNextPage?: boolean;
+	fetchNextPage?: () => void;
 	onEdit?: (user: any) => void;
 	onDelete?: (user: any) => void;
 };
@@ -28,6 +37,9 @@ type Props = {
 const UserList: React.FC<Props> = ({
 	users,
 	isLoading,
+	hasNextPage = false,
+	isFetchingNextPage = false,
+	fetchNextPage = () => {},
 	onEdit = () => {},
 	onDelete = () => {},
 }) => {
@@ -101,7 +113,11 @@ const UserList: React.FC<Props> = ({
 
 					<DropdownMenu>
 						<DropdownItem>
-							<Button color='info' isLight icon='edit' onClick={() => onEdit(row)}>
+							<Button
+								color='info'
+								isLight
+								icon='edit'
+								onClick={() => onEdit(row)}>
 								Edit
 							</Button>
 						</DropdownItem>
@@ -126,20 +142,24 @@ const UserList: React.FC<Props> = ({
 			<CardHeader>
 				<CardLabel icon='person'>
 					<CardTitle className='h5'>Users</CardTitle>
+
 					<CardActions className='text-muted'>
 						Total Users: {users.length}
 					</CardActions>
 				</CardLabel>
-				
 			</CardHeader>
-			<CardBody className='p-4'>
-				<DataTable
-					fixed
+
+			<CardBody>
+				<InfiniteDataTable
 					columns={columns}
 					data={users}
-					search={false}
 					isLoading={isLoading}
+					isFetchingNextPage={isFetchingNextPage}
+					hasNextPage={hasNextPage}
+					fetchNextPage={fetchNextPage}
 					noDataFound='No Users Found'
+					fixed
+					scrollHeight='650px'
 				/>
 			</CardBody>
 		</Card>

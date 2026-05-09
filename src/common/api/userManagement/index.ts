@@ -113,3 +113,22 @@ export const deleteUserById = async (id: number | string) => {
 		handleApiError(error, 'Failed to delete user');
 	}
 };
+
+
+export const getPaginatedUsers = async ({
+	pageParam = 0,
+	search = '',
+}: {
+	pageParam?: number;
+	search?: string;
+}) => {
+	const response = await api.get('/users/pagination', {
+		params: {
+			page: pageParam,
+			size: 10,
+			search,
+		},
+	});
+
+	return response.data;
+};
