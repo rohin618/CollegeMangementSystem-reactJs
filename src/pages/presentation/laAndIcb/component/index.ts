@@ -1,2 +1,0 @@
-
-export {CreateBlockBedInvoice} from './createBlockBedInvoice'

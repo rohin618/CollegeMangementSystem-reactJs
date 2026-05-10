@@ -1,1 +1,0 @@
-export {LaOrIcbInvoiceList} from './laOrIcbInvoice'

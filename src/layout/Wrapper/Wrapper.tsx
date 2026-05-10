@@ -8,7 +8,6 @@ import FooterRoutes from '../Footer/FooterRoutes';
 import ThemeContext from '../../contexts/themeContext';
 import { MasterDataProvider } from '../../contexts/mastersContext';
 import { AuthContextProvider } from '../../contexts/authContext';
-import { store } from '../../store/store';
 
 interface IWrapperContainerProps {
 	children: ReactNode;
@@ -34,14 +33,13 @@ const Wrapper = () => {
 		<>
 			<AuthContextProvider>
 				{/* <MasterDataProvider> */}
-				<Provider store={store}>
+			
 					<WrapperContainer>
 						<HeaderRoutes />
 						<Content />
 						<FooterRoutes />
 					</WrapperContainer>
 					<WrapperOverlay />
-					</Provider>
 				{/* </MasterDataProvider> */}
 			</AuthContextProvider>
 		</>

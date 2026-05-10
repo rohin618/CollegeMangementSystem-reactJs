@@ -1,7 +1,7 @@
 import axios from 'axios';
-import { NOTIFY_TYPE } from '../../constant';
 import { notifyEntity } from '../../../helpers/helpers';
 import api from '../../axios';
+import { NOTIFY_TYPE } from '../../constant/app';
 
 export interface IUserRequest {
 	username: string;

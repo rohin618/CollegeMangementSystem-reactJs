@@ -1,16 +1,12 @@
 import React from 'react';
 import Icon from '../../icon';
-import { PREBOOK_TYPE } from '../../../common/constant';
 import {
-	getActiveFundList,
+	
 	getFirstLetter,
-	getFundTypes,
 	getLabelByValue,
 } from '../../../helpers/helpers';
 import useDarkMode from '../../../hooks/useDarkMode';
-import { INVOICE_TO_TYPE_LIST } from '../../../common/data/option';
 import { Popovers } from '../../bootstrap';
-import { useGetAllRoomsWithBeds } from '../../../hooks/useGetAllRoomsWithBed';
 import { useNavigate } from 'react-router-dom';
 
 interface ResidentProfileCardProps {
@@ -30,15 +26,10 @@ export const ResidentProfileCard: React.FC<ResidentProfileCardProps> = ({
 }) => {
 	const { darkModeStatus } = useDarkMode();
 	const navigate = useNavigate();
-	const {
-		data: roomsList = [],
-		isLoading: roomListIsLoading,
-		isError,
-	} = useGetAllRoomsWithBeds();
 	if (!resident) return null;
 
 	const findRoomAndBed = (roomId: any, bedId: any) => {
-		const room = roomsList.find((r: any) => r.id === roomId) as any;
+		const room = [].find((r: any) => r.id === roomId) as any;
 		const bed =
 			room?.beds.length <= 1 ? null : (room?.beds?.find((b: any) => b.id === bedId) as any);
 		return { room, bed };
@@ -48,7 +39,7 @@ export const ResidentProfileCard: React.FC<ResidentProfileCardProps> = ({
 
 	const residentName = resident?.personal?.name;
 
-	const fundInfo: any[] = getActiveFundList ? getActiveFundList(resident) : [];
+	const fundInfo: any[] = [];
 	const handleNavigate = () => {
 		if (!resident?.id || !isNavigate) return;
 		navigate(`/resident/details/${resident.id}`);
@@ -110,7 +101,7 @@ export const ResidentProfileCard: React.FC<ResidentProfileCardProps> = ({
 							)}
 						</>
 					) : (
-						<small>{getLabelByValue(INVOICE_TO_TYPE_LIST, invoiceTo)}</small>
+						<small>dummmy</small>
 					)}
 				</div>
 

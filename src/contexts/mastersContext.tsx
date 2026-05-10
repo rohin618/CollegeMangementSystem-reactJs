@@ -1,14 +1,5 @@
 import React, { createContext, useContext, ReactNode } from "react";
-import {
-    useBankDetails,
-    useFNCDetails,
-    useGetMiscellaneousList,
-    useGetVATList,
-    useLocalAuthorityList,
-    useLocalICBList
-} from "../hooks";
-import { useGetBillingPatternList } from "../hooks/useGetBillingPatternList";
-import { useDueDateList } from "../hooks/useDueDate";
+
 
 // 🧾 Define interfaces for each master data type
 export interface LaItem {

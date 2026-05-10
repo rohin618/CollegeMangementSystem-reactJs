@@ -1,1 +1,0 @@
-export { BedBookingForm } from './bed-booking-form';

@@ -4,13 +4,12 @@ import Navigation from '../../../layout/Navigation/Navigation';
 import useDeviceScreen from '../../../hooks/useDeviceScreen';
 import Avatar from '../../../components/Avatar';
 import { useGetCurrentUser, useLocalStorageSubscribe } from '../../../hooks';
-import { getLabelByValue, getUserMappedCompanyId, setStorage } from '../../../helpers/helpers';
-import { SALUTATION_LIST, USER_ROLE_LIST } from '../../../common/data/option';
-import { useQuery } from '@tanstack/react-query';
-import { getAllCompany } from '../../../common/api/company';
-import { EXIST_SESSION_STORAGE_NAMES, NOTIFICATION_STATUS } from '../../../common/constant';
+import { getLabelByValue, setStorage } from '../../../helpers/helpers';
+import { USER_ROLE_LIST } from '../../../common/data/option';
+
+import { EXIST_SESSION_STORAGE_NAMES } from '../../../common/constant';
 import Icon from '../../../components/icon';
-import { SwitchCompanyModal } from './component';
+
 import { useNavigate } from 'react-router-dom';
 import {
 	Button,
@@ -22,16 +21,14 @@ import {
 import classNames from 'classnames';
 import useDarkMode from '../../../hooks/useDarkMode';
 import { IButtonProps } from '../../../components/bootstrap/Button';
-import { AdvanceCreditForm } from '../../presentation/creditWallet/component';
-import { CreditNotesForm } from '../../presentation/creditNotes/components';
-import { InvoiceCreateAndUpdateForm } from '../../presentation/invoice/component';
+
+
 import NotificationModal from './component/notification/notifcationModal';
-import { getAllNotificationByCompanyId } from '../../../common/api/notification';
+
 
 const DefaultHeader = () => {
 	const { width } = useDeviceScreen();
-	const currentUser = useGetCurrentUser();
-	const resolvedCompanyId = getUserMappedCompanyId()?.companyId; // get the current companyId from storage
+	const currentUser = useGetCurrentUser(); 
 	const { darkModeStatus, setDarkModeStatus } = useDarkMode();
 	const [isOpenAddAdvanceModel, setIsOpenAddAdvanceModel] = useState(false);
 	const [isOpenAddCreditModel, setIsOpenAddCreditModel] = useState(false);
@@ -40,21 +37,11 @@ const DefaultHeader = () => {
 
 	const [notifications, setNotifications] = useState<any[]>([]);
 
-	useEffect(() => {
-		const unsubscribe = getAllNotificationByCompanyId(
-			(data) => {
-				setNotifications(data);
-			},
-			(error) => {
-				console.error(error);
-			},
-		);
-		return () => unsubscribe();
-	}, []);
+
 
 	const hasUnreadNotifications = useMemo(() => {
 		return notifications?.some((notify: any) =>
-			notify?.invoices?.some((inv: any) => inv.status === NOTIFICATION_STATUS.UNREAD),
+			notify?.invoices?.some((inv: any) => inv.status === 1),
 		);
 	}, [notifications]);
 

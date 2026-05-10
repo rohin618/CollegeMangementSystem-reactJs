@@ -12,7 +12,6 @@ import Icon from '../../components/icon';
 import useNavigationItemHandle from '../../hooks/useNavigationItemHandle';
 import AuthContext, { useAuth } from '../../contexts/authContext';
 import ThemeContext from '../../contexts/themeContext';
-import {SALUTATION_LIST} from '../../common/data/option';
 import {getLabelByValue} from '../../helpers/helpers';
 
 const 	User = ({currentUser}:any) => {
@@ -44,10 +43,10 @@ const 	User = ({currentUser}:any) => {
 					/>
 				</div>
 				<div className='user-info'>
-					<div className='user-name d-flex align-items-center'>
+					{/* <div className='user-name d-flex align-items-center'>
 						{`${getLabelByValue(SALUTATION_LIST,currentUser?.salutation)} ${currentUser?.name}`}
 						<Icon icon='Verified' className='ms-1' color='info' />
-					</div>
+					</div> */}
 					<div className='user-sub-title'>U{currentUser?.code}</div>
 				</div>
 			</div>

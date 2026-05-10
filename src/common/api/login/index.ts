@@ -1,6 +1,5 @@
 import { notifyEntity } from "../../../helpers/helpers";
 import api from "../../axios";
-import { NOTIFY_TYPE } from "../../constant";
 
 export interface LoginRequest {
     username: string;
@@ -9,6 +8,7 @@ export interface LoginRequest {
 
 
 import axios from "axios";
+import { NOTIFY_TYPE } from "../../constant/app";
 
 export const loginUser = async (data: LoginRequest) => {
     try {
