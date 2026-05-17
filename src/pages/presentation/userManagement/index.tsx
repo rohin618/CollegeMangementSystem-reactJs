@@ -21,31 +21,14 @@ import { useRemoveInfiniteQueryItemById } from '../../../hooks/useRemoveInfinite
 import { useUpdateInfiniteQueryItemById } from '../../../hooks/useUpdateInfiniteQueryItemById';
 import { deleteUserById, getPaginatedUsers } from '../../../common/api/userManagement';
 import { showAlert } from '../../../helpers/alerts';
-
-const QUERY_KEY = {
-	USERS: 'USERS',
-};
+import { QUERY_KEY } from '../../../common/constant';
+import { useDebounce } from '../../../hooks/useDebounce';
 
 
 
-const useDebounce = (value: string, delay = 500) => {
-	const [debouncedValue, setDebouncedValue] = useState(value);
-
-	useEffect(() => {
-		const timer = setTimeout(() => {
-			setDebouncedValue(value);
-		}, delay);
-
-		return () => clearTimeout(timer);
-	}, [value, delay]);
-
-	return debouncedValue;
-};
 
 const UserManagementPage = () => {
 	const [isFilterOpen, setFilterOpen] = useState(false);
-	const [searchParams] = useSearchParams();
-	const statusParam = searchParams.get('status');
 
 	const [search, setSearch] = useState('');
 	const debouncedSearch = useDebounce(search, 500);

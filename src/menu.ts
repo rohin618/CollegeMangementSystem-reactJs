@@ -1,4 +1,3 @@
-import { USER_TYPE } from "./common/constant";
 
 export const summaryPageTopMenu = {
 	intro: { id: 'intro', text: 'Intro', path: '#intro', icon: 'Vrpano', subMenu: null },
@@ -256,9 +255,31 @@ export const pagesMenu = {
 		path: 'userManagement',
 		icon: 'People',
 		roles: [
-			
+
 		],
 		subMenu: null,
+	},
+
+	academicManagement: {
+		id: 'academicManagement',
+		text: 'Academic Management',
+		path: 'academicManagement',
+		icon: 'School', // main academic module
+		roles: [],
+		subMenu: {
+			departments: {
+				id: 'departments',
+				text: 'Departments',
+				path: 'departments',
+				icon: 'Apartment', // department/faculty structure
+			},
+			academicBatch: {
+				id: 'academicBatch',
+				text: 'Academic Batch',
+				path: 'academicBatch',
+				icon: 'DateRange', // academic year / batch timeline
+			},
+		},
 	}
 };
 

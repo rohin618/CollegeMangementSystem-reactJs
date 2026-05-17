@@ -1,4 +1,4 @@
-import { USER_ROLE } from "../../constant/app";
+import { DEPARTMENT_STATUS, USER_ROLE } from "../../constant/app";
 
 // CMS
 export const USER_ROLE_LIST = [
@@ -21,5 +21,17 @@ export const USER_ROLE_LIST = [
     value: USER_ROLE.STUDENT,
     label: 'Student',
     color: 'success',
+  },
+];
+
+
+export const DEPARTMENT_STATUS_OPTIONS = [
+  {
+    label: 'Active',
+    value: DEPARTMENT_STATUS.ACTIVE,
+  },
+  {
+    label: 'Inactive',
+    value: DEPARTMENT_STATUS.INACTIVE,
   },
 ];

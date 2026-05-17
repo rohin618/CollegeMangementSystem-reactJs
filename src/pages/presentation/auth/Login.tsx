@@ -66,15 +66,37 @@ const Login: FC<ILoginProps> = () => {
 					<div className='col-xl-4 col-lg-6 col-md-8 shadow-3d-container'>
 						<Card data-tour='login-page'>
 							<CardBody>
-								<div className='text-center my-5'>
-									<h1 className='fw-bold text-dark mb-2'>
-										College Management System
-									</h1>
+					<div className='text-center my-4'>
+	<h1
+		className='fw-bolder text-primary mb-2'
+		style={{
+			fontSize: '2.5rem',
+			letterSpacing: '-0.5px',
+		}}>
+		College Management System
+	</h1>
 
-									<p className='text-muted fs-5 mb-0'>
-										Sign in to continue
-									</p>
-								</div>
+	<p
+		className='text-secondary mb-4 fw-medium'
+		style={{
+			fontSize: '1rem',
+		}}>
+		Manage students, faculty, academics, and administration
+	</p>
+
+	<div className='mb-4'>
+		<img
+			src='../../../.././college-logo.jpg'
+			alt='College Management'
+			className='img-fluid rounded-3 border'
+			style={{
+				width: '100px',
+				height: 'auto',
+				objectFit: 'cover',
+			}}
+		/>
+	</div>
+</div>
 
 								<form className='row g-4' onSubmit={handleSubmit}>
 									<div className='col-12'>

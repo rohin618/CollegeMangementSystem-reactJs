@@ -33,3 +33,8 @@ export const USER_ROLE = {
   FACULTY: 'FACULTY',
   STUDENT: 'STUDENT',
 } as const;
+
+export const DEPARTMENT_STATUS = {
+  ACTIVE: 'ACTIVE',
+  INACTIVE: 'INACTIVE'
+} as const;

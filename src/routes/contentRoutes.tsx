@@ -13,6 +13,8 @@ export type AppRoute = RouteProps & {
 const Login = lazy(() => import('../pages/presentation/auth/Login'));
 const LoginCompany = lazy(() => import('../pages/presentation/auth/loginCompany'));
 const UserManagementPage = lazy(() => import('../pages/presentation/userManagement'));
+const DepartmentPage = lazy(() => import('../pages/presentation/academicManagement/departments'));
+const AcademicBatchPage = lazy(() => import('../pages/presentation/academicManagement/academicBatches'));
 
 const presentation: AppRoute[] = [
 	{ path: authMenu.login.path, element: <Login />, isPublic: true },
@@ -23,6 +25,8 @@ const presentation: AppRoute[] = [
 
 
 	{ path: pagesMenu.userManagement.path, element: <UserManagementPage/>, isPublic: false },
+	{ path: pagesMenu.academicManagement.subMenu.departments.path, element: <DepartmentPage/>, isPublic: false },
+	{ path: pagesMenu.academicManagement.subMenu.academicBatch.path, element: <AcademicBatchPage/>, isPublic: false },
 ];
 
 export default presentation;
