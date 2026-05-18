@@ -35,3 +35,13 @@ export const DEPARTMENT_STATUS_OPTIONS = [
     value: DEPARTMENT_STATUS.INACTIVE,
   },
 ];
+export const ACADEMIC_BATCH_STATUS_OPTIONS = [
+  {
+    label: 'Active',
+    value: DEPARTMENT_STATUS.ACTIVE,
+  },
+  {
+    label: 'Inactive',
+    value: DEPARTMENT_STATUS.INACTIVE,
+  },
+];

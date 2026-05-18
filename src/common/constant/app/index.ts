@@ -38,3 +38,7 @@ export const DEPARTMENT_STATUS = {
   ACTIVE: 'ACTIVE',
   INACTIVE: 'INACTIVE'
 } as const;
+export const ACADEMIC_BATCH_STATUS = {
+  ACTIVE: 'ACTIVE',
+  INACTIVE: 'INACTIVE'
+} as const;
