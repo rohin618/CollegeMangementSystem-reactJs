@@ -1,4 +1,4 @@
-import { DEPARTMENT_STATUS, USER_ROLE } from "../../constant/app";
+import { DEPARTMENT_STATUS, SEMESTER_STATUS, USER_ROLE } from "../../constant/app";
 
 // CMS
 export const USER_ROLE_LIST = [
@@ -43,5 +43,18 @@ export const ACADEMIC_BATCH_STATUS_OPTIONS = [
   {
     label: 'Inactive',
     value: DEPARTMENT_STATUS.INACTIVE,
+  },
+];
+
+
+
+export const SEMESTER_STATUS_OPTIONS = [
+  {
+    label: 'Active',
+    value: SEMESTER_STATUS.ACTIVE,
+  },
+  {
+    label: 'Inactive',
+    value: SEMESTER_STATUS.INACTIVE,
   },
 ];
