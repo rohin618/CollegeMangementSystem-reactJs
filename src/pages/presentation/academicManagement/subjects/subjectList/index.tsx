@@ -18,18 +18,24 @@ import useDarkMode from '../../../../../hooks/useDarkMode';
 import { getFirstLetter } from '../../../../../helpers/helpers';
 
 import InfiniteDataTable from '../../../../../components/common/infinixDataTable';
-import { ISemester } from '../../../../../common/interface/semester';
+import { ISubject } from '../../../../../common/interface/subject';
 
 type Props = {
-	semesters: ISemester[];
+	subjects: ISubject[];
 	isLoading: boolean;
-	onEdit?: (semester: ISemester) => void;
-	onDelete?: (semester: ISemester) => void;
+	hasNextPage?: boolean;
+	isFetchingNextPage?: boolean;
+	fetchNextPage?: () => void;
+	onEdit?: (subject: ISubject) => void;
+	onDelete?: (subject: ISubject) => void;
 };
 
-const SemesterList: React.FC<Props> = ({
-	semesters,
+const SubjectList: React.FC<Props> = ({
+	subjects,
 	isLoading,
+	hasNextPage = false,
+	isFetchingNextPage = false,
+	fetchNextPage = () => {},
 	onEdit = () => {},
 	onDelete = () => {},
 }) => {
@@ -37,9 +43,9 @@ const SemesterList: React.FC<Props> = ({
 
 	const columns = [
 		{
-			label: 'Semester',
-			key: 'semesterNumber',
-			render: (row: ISemester) => (
+			label: 'Subject',
+			key: 'name',
+			render: (row: ISubject) => (
 				<div className='d-flex align-items-center'>
 					<div className='flex-shrink-0'>
 						<div
@@ -50,9 +56,7 @@ const SemesterList: React.FC<Props> = ({
 									darkModeStatus ? 'o25' : '25'
 								}-primary text-primary rounded-2 d-flex align-items-center justify-content-center`}>
 								<span className='fw-bold'>
-									{getFirstLetter(
-										`S${row?.semesterNumber || 1}`,
-									)}
+									{getFirstLetter(row?.name || 'S')}
 								</span>
 							</div>
 						</div>
@@ -60,13 +64,11 @@ const SemesterList: React.FC<Props> = ({
 
 					<div className='flex-grow-1'>
 						<div className='fs-6 fw-bold'>
-							Semester {row?.semesterNumber || '-'}
+							{row?.name || '-'}
 						</div>
 
 						<div className='text-muted'>
-							<small>
-								Semester Number: {row?.semesterNumber || '-'}
-							</small>
+							<small>{row?.description || '-'}</small>
 						</div>
 					</div>
 				</div>
@@ -74,15 +76,42 @@ const SemesterList: React.FC<Props> = ({
 		},
 
 		{
-			label: 'Semester Number',
-			key: 'semesterNumber',
+			label: 'Code',
+			key: 'code',
 			sortable: true,
-			render: (row: ISemester) => (
+			render: (row: ISubject) => (
 				<Badge
 					isLight
 					color='info'
 					className='px-3 py-2 rounded-pill'>
-					{row?.semesterNumber || '-'}
+					{row?.code || '-'}
+				</Badge>
+			),
+		},
+
+		{
+			label: 'Credits',
+			key: 'credits',
+			sortable: true,
+			render: (row: ISubject) => (
+				<Badge
+					isLight
+					color='warning'
+					className='px-3 py-2 rounded-pill'>
+					{row?.credits || '-'}
+				</Badge>
+			),
+		},
+
+		{
+			label: 'Type',
+			key: 'type',
+			render: (row: ISubject) => (
+				<Badge
+					isLight
+					color='primary'
+					className='px-3 py-2 rounded-pill'>
+					{row?.type || '-'}
 				</Badge>
 			),
 		},
@@ -90,7 +119,7 @@ const SemesterList: React.FC<Props> = ({
 		{
 			label: 'Status',
 			key: 'status',
-			render: (row: ISemester) => (
+			render: (row: ISubject) => (
 				<Badge
 					isLight
 					color={
@@ -107,7 +136,7 @@ const SemesterList: React.FC<Props> = ({
 		{
 			label: 'Actions',
 			key: 'actions',
-			render: (row: ISemester) => (
+			render: (row: ISubject) => (
 				<Dropdown>
 					<DropdownToggle hasIcon={false}>
 						<Button
@@ -147,30 +176,30 @@ const SemesterList: React.FC<Props> = ({
 	return (
 		<Card stretch>
 			<CardHeader>
-				<CardLabel icon='School'>
-					<CardTitle className='h5'>Semesters</CardTitle>
+				<CardLabel icon='MenuBook'>
+					<CardTitle className='h5'>Subjects</CardTitle>
 
 					<CardActions className='text-muted'>
-						Total Semesters: {semesters.length}
+						Total Subjects: {subjects.length}
 					</CardActions>
 				</CardLabel>
 			</CardHeader>
 
 			<CardBody>
 				<InfiniteDataTable
-					columns={columns}
-					data={semesters}
-					isLoading={isLoading}
-					isFetchingNextPage={false}
-					hasNextPage={false}
-					fetchNextPage={() => {}}
-					noDataFound='No Semesters Found'
-					fixed
-					scrollHeight='650px'
-				/>
+	columns={columns}
+	data={subjects}
+	isLoading={isLoading}
+	isFetchingNextPage={isFetchingNextPage}
+	hasNextPage={hasNextPage}
+	fetchNextPage={fetchNextPage}
+	noDataFound='No Subjects Found'
+	fixed
+	scrollHeight='650px'
+/>
 			</CardBody>
 		</Card>
 	);
 };
 
-export default SemesterList;
+export default SubjectList;

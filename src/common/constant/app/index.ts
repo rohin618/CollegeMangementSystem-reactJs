@@ -46,4 +46,12 @@ export const ACADEMIC_BATCH_STATUS = {
 export const SEMESTER_STATUS = {
   ACTIVE: 'ACTIVE',
   INACTIVE: 'INACTIVE',
-};
+} as const;
+export const SUBJECT_STATUS = {
+  ACTIVE: 'ACTIVE',
+  INACTIVE: 'INACTIVE',
+} as const;
+export const SUBJECT_TYPE = {
+  THEORY: 'THEORY',
+  PRACTICAL: 'PRACTICAL',
+} as const;

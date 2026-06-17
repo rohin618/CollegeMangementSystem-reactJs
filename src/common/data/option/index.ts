@@ -1,4 +1,4 @@
-import { DEPARTMENT_STATUS, SEMESTER_STATUS, USER_ROLE } from "../../constant/app";
+import { DEPARTMENT_STATUS, SEMESTER_STATUS, SUBJECT_STATUS, SUBJECT_TYPE, USER_ROLE } from "../../constant/app";
 
 // CMS
 export const USER_ROLE_LIST = [
@@ -56,5 +56,25 @@ export const SEMESTER_STATUS_OPTIONS = [
   {
     label: 'Inactive',
     value: SEMESTER_STATUS.INACTIVE,
+  },
+];
+export const SUBJECT_STATUS_OPTIONS = [
+  {
+    label: 'Active',
+    value: SUBJECT_STATUS.ACTIVE,
+  },
+  {
+    label: 'Inactive',
+    value: SUBJECT_STATUS.INACTIVE,
+  },
+];
+export const SUBJECT_TYPE_OPTIONS = [
+  {
+    label: 'Theory',
+    value: SUBJECT_TYPE.THEORY,
+  },
+  {
+    label: 'Practical',
+    value: SUBJECT_TYPE.PRACTICAL,
   },
 ];

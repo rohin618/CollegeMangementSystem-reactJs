@@ -285,6 +285,12 @@ export const pagesMenu = {
 				path: 'semester',
 				icon: 'DateRange', // academic year / batch timeline
 			},
+			subjects: {
+				id: 'subjects',
+				text: 'Subjects',
+				path: 'subjects',
+				icon: 'Book', // subject/material structure
+			},
 		},
 	}
 };
