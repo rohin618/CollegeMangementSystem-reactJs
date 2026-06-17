@@ -12,48 +12,30 @@ const DefaultAside = () => {
 	const { asideStatus, setAsideStatus } = useContext(ThemeContext);
 	const currentUser = useGetCurrentUser();
 
-	const [doc] = useState(
-		localStorage.getItem('facit_asideDocStatus') === 'true' || false,
-	);
+	const [doc] = useState(localStorage.getItem('facit_asideDocStatus') === 'true' || false);
 
 	const filterMenuByRole = (menu: any, role?: string) => {
 		if (!role) return {};
 
-		// Super Admin -> full access
 		if (role === USER_ROLE.SUPER_ADMIN) {
 			return menu;
 		}
 
-		// Admin -> almost full access
 		if (role === USER_ROLE.ADMIN) {
 			return {
-				dashboard: menu.dashboard,
-				students: menu.students,
-				faculty: menu.faculty,
-				courses: menu.courses,
-				departments: menu.departments,
-				attendance: menu.attendance,
+				userManagement: menu.userManagement,
+				academicManagement: menu.academicManagement,
 			};
 		}
 
-		// Faculty access
 		if (role === USER_ROLE.FACULTY) {
 			return {
-				dashboard: menu.dashboard,
-				students: menu.students,
-				attendance: menu.attendance,
-				courses: menu.courses,
+				academicManagement: menu.academicManagement,
 			};
 		}
 
-		// Student access
 		if (role === USER_ROLE.STUDENT) {
-			return {
-				dashboard: menu.dashboard,
-				courses: menu.courses,
-				attendance: menu.attendance,
-				profile: menu.profile,
-			};
+			return {};
 		}
 
 		return {};
@@ -67,9 +49,7 @@ const DefaultAside = () => {
 				<Brand asideStatus={asideStatus} setAsideStatus={setAsideStatus} />
 			</AsideHead>
 
-			<AsideBody>
-				{!doc && <Navigation menu={filteredMenu} id='aside-dashboard' />}
-			</AsideBody>
+			<AsideBody>{!doc && <Navigation menu={filteredMenu} id='aside-dashboard' />}</AsideBody>
 
 			<AsideFoot>
 				<User currentUser={currentUser} />

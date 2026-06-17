@@ -294,7 +294,7 @@ export const authMenu = {
 	login: {
 		id: 'login',
 		text: 'Login',
-		path: '',
+		path: 'login',
 		icon: 'Login',
 	},
 	loginCompany: {

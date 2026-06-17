@@ -1,5 +1,4 @@
 import { useNavigate } from "react-router-dom";
-import { PREBOOK_TYPE } from "../../../../../common/constant";
 import { getColorNameWithIndex } from "../../../../../common/data/enumColors";
 import USERS from "../../../../../common/data/userDummyData";
 import Avatar, { AvatarGroup } from "../../../../../components/Avatar"

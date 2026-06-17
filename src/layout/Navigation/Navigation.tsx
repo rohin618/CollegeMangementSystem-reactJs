@@ -55,6 +55,8 @@ const Navigation = forwardRef<HTMLElement, INavigationProps>(
 
 		const { t } = useTranslation('menu');
 
+		console.log("MENU PROP", menu);
+
 		function fillMenu(
 			data:
 				| {
