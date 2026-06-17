@@ -279,6 +279,12 @@ export const pagesMenu = {
 				path: 'academicBatch',
 				icon: 'DateRange', // academic year / batch timeline
 			},
+			semester: {
+				id: 'semester',
+				text: 'Semester',
+				path: 'semester',
+				icon: 'DateRange', // academic year / batch timeline
+			},
 		},
 	}
 };
