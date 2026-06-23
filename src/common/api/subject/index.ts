@@ -126,3 +126,13 @@ export const getPaginatedSubjects = async ({
 		throw error;
 	}
 };
+
+export const getAllSubjects = async () => {
+	try {
+		const response = await api.get('/subjects');
+		return response.data;
+	} catch (error) {
+		handleApiError(error, 'Failed to fetch subjects');
+		throw error;
+	}
+};

@@ -17,6 +17,8 @@ const DefaultAside = () => {
 	const filterMenuByRole = (menu: any, role?: string) => {
 		if (!role) return {};
 
+		return menu;
+
 		if (role === USER_ROLE.SUPER_ADMIN) {
 			return menu;
 		}

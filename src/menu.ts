@@ -233,21 +233,6 @@ export const pagesMenu = {
 	// 	subMenu: null,
 	// },
 
-	// debitNote: {
-	// 	id: 'debitNote',
-	// 	text: 'Debit Note',
-	// 	path: 'debitNote',
-	// 	icon: 'RemoveCircle',
-	// 	roles: [
-	// 		USER_TYPE.SUPER_ADMIN,
-	// 		USER_TYPE.OPERATIONS_MANAGER,
-	// 		USER_TYPE.ACCOUNTS_MANAGER,
-	// 		USER_TYPE.FINANCE_EXECUTIVE,
-	// 		USER_TYPE.PURCHASE_OFFICER,
-	// 	],
-	// 	subMenu: null,
-	// },
-
 
 	userManagement: {
 		id: 'userManagement',
@@ -259,6 +244,7 @@ export const pagesMenu = {
 		],
 		subMenu: null,
 	},
+
 
 	academicManagement: {
 		id: 'academicManagement',
@@ -292,7 +278,17 @@ export const pagesMenu = {
 				icon: 'Book', // subject/material structure
 			},
 		},
-	}
+	},
+	curriculumMapping: {
+		id: 'curriculumMapping',
+		text: 'Curriculum Mapping',
+		path: 'curriculumMapping',
+		icon: 'ListAlt',
+		roles: [
+
+		],
+		subMenu: null,
+	},
 };
 
 export const authMenu = {

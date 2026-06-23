@@ -47,6 +47,10 @@ export const SEMESTER_STATUS = {
   ACTIVE: 'ACTIVE',
   INACTIVE: 'INACTIVE',
 } as const;
+export const CURRICULUM_STATUS = {
+  ACTIVE: 'ACTIVE',
+  INACTIVE: 'INACTIVE',
+} as const;
 export const SUBJECT_STATUS = {
   ACTIVE: 'ACTIVE',
   INACTIVE: 'INACTIVE',
