@@ -20,7 +20,7 @@ const DefaultFooter = () => {
 								'link-dark': !darkModeStatus,
 								'link-light': darkModeStatus,
 							})}>
-							<small className='fw-bold'>ARMS Powered By <a target='_blank' href="">CMS</a></small>
+							<small className='fw-bold'>College Project <a target='_blank' href="">CMS</a></small>
 						</div>
 					</div>
 				</div>

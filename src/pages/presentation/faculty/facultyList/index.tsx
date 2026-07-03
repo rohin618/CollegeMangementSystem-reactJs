@@ -12,24 +12,31 @@ import {
 	DropdownItem,
 	DropdownMenu,
 	DropdownToggle,
-} from '../../../../../components/bootstrap';
+} from '../../../../components/bootstrap';
 
-import useDarkMode from '../../../../../hooks/useDarkMode';
-import { getFirstLetter } from '../../../../../helpers/helpers';
+import InfiniteDataTable from '../../../../components/common/infinixDataTable';
 
-import InfiniteDataTable from '../../../../../components/common/infinixDataTable';
-import { IAcademicBatch } from '../../../../../common/interface/academicBatch';
+import useDarkMode from '../../../../hooks/useDarkMode';
+import { getFirstLetter } from '../../../../helpers/helpers';
+
+import { IFaculty } from '../../../../common/interface/faculty';
 
 type Props = {
-	academicBatches: IAcademicBatch[];
+	faculties: IFaculty[];
 	isLoading: boolean;
-	onEdit?: (academicBatch: IAcademicBatch) => void;
-	onDelete?: (academicBatch: IAcademicBatch) => void;
+	hasNextPage?: boolean;
+	isFetchingNextPage?: boolean;
+	fetchNextPage?: () => void;
+	onEdit?: (faculty: IFaculty) => void;
+	onDelete?: (faculty: IFaculty) => void;
 };
 
-const AcademicBatchList: React.FC<Props> = ({
-	academicBatches,
+const FacultyList: React.FC<Props> = ({
+	faculties,
 	isLoading,
+	hasNextPage = false,
+	isFetchingNextPage = false,
+	fetchNextPage = () => {},
 	onEdit = () => {},
 	onDelete = () => {},
 }) => {
@@ -37,9 +44,9 @@ const AcademicBatchList: React.FC<Props> = ({
 
 	const columns = [
 		{
-			label: 'Academic Batch',
-			key: 'name',
-			render: (row: IAcademicBatch) => (
+			label: 'Faculty',
+			key: 'firstName',
+			render: (row: IFaculty) => (
 				<div className='d-flex align-items-center'>
 					<div className='flex-shrink-0'>
 						<div
@@ -50,7 +57,9 @@ const AcademicBatchList: React.FC<Props> = ({
 									darkModeStatus ? 'o25' : '25'
 								}-primary text-primary rounded-2 d-flex align-items-center justify-content-center`}>
 								<span className='fw-bold'>
-									{getFirstLetter(row?.name || 'A')}
+									{getFirstLetter(
+										row?.firstName || 'F',
+									)}
 								</span>
 							</div>
 						</div>
@@ -58,14 +67,12 @@ const AcademicBatchList: React.FC<Props> = ({
 
 					<div className='flex-grow-1'>
 						<div className='fs-6 fw-bold'>
-							{row?.name || '-'}
+							{row?.firstName}{' '}
+							{row?.lastName}
 						</div>
 
 						<div className='text-muted'>
-							<small>
-								Batch Duration: {row?.startYear || '-'} -{' '}
-								{row?.endYear || '-'}
-							</small>
+							<small>{row?.email}</small>
 						</div>
 					</div>
 				</div>
@@ -73,29 +80,69 @@ const AcademicBatchList: React.FC<Props> = ({
 		},
 
 		{
-			label: 'Duration',
-			key: 'duration',
+			label: 'Employee Code',
+			key: 'employeeCode',
 			sortable: true,
-			render: (row: IAcademicBatch) => (
+			render: (row: IFaculty) => (
 				<Badge
 					isLight
 					color='info'
 					className='px-3 py-2 rounded-pill'>
-					{row?.startYear || '-'} - {row?.endYear || '-'}
+					{row?.employeeCode || '-'}
 				</Badge>
+			),
+		},
+
+		{
+			label: 'Designation',
+			key: 'designation',
+			render: (row: IFaculty) => (
+				<Badge
+					isLight
+					color='primary'
+					className='px-3 py-2 rounded-pill'>
+					{row?.designation || '-'}
+				</Badge>
+			),
+		},
+
+		{
+			label: 'Department',
+			key: 'departmentName',
+			render: (row: IFaculty) => (
+				<div className='fw-semibold'>
+					{row?.departmentName || '-'}
+				</div>
+			),
+		},
+
+		{
+			label: 'Phone Number',
+			key: 'phoneNumber',
+			render: (row: IFaculty) => (
+				<div>{row?.phoneNumber || '-'}</div>
 			),
 		},
 
 		{
 			label: 'Status',
 			key: 'status',
-			render: (row: IAcademicBatch) => (
+			render: (row: IFaculty) => (
 				<Badge
 					isLight
 					color={
 						row?.status === 'ACTIVE'
 							? 'success'
-							: 'danger'
+							: row?.status ===
+								  'ON_LEAVE'
+								? 'warning'
+								: row?.status ===
+									  'RETIRED'
+									? 'secondary'
+									: row?.status ===
+										  'RESIGNED'
+										? 'danger'
+										: 'dark'
 					}
 					className='px-3 py-2 rounded-pill'>
 					{row?.status || '-'}
@@ -106,7 +153,7 @@ const AcademicBatchList: React.FC<Props> = ({
 		{
 			label: 'Actions',
 			key: 'actions',
-			render: (row: IAcademicBatch) => (
+			render: (row: IFaculty) => (
 				<Dropdown>
 					<DropdownToggle hasIcon={false}>
 						<Button
@@ -123,7 +170,9 @@ const AcademicBatchList: React.FC<Props> = ({
 								color='info'
 								isLight
 								icon='edit'
-								onClick={() => onEdit(row)}>
+								onClick={() =>
+									onEdit(row)
+								}>
 								Edit
 							</Button>
 						</DropdownItem>
@@ -133,7 +182,9 @@ const AcademicBatchList: React.FC<Props> = ({
 								color='danger'
 								isLight
 								icon='delete'
-								onClick={() => onDelete(row)}>
+								onClick={() =>
+									onDelete(row)
+								}>
 								Delete
 							</Button>
 						</DropdownItem>
@@ -146,14 +197,14 @@ const AcademicBatchList: React.FC<Props> = ({
 	return (
 		<Card stretch>
 			<CardHeader>
-				<CardLabel icon='School'>
+				<CardLabel icon='Person'>
 					<CardTitle className='h5'>
-						Academic Batches
+						Faculties
 					</CardTitle>
 
 					<CardActions className='text-muted'>
-						Total Academic Batches:{' '}
-						{academicBatches.length}
+						Total Faculties:{' '}
+						{faculties.length}
 					</CardActions>
 				</CardLabel>
 			</CardHeader>
@@ -161,12 +212,14 @@ const AcademicBatchList: React.FC<Props> = ({
 			<CardBody>
 				<InfiniteDataTable
 					columns={columns}
-					data={academicBatches}
+					data={faculties}
 					isLoading={isLoading}
-					isFetchingNextPage={false}
-					hasNextPage={false}
-					fetchNextPage={() => {}}
-					noDataFound='No Academic Batches Found'
+					isFetchingNextPage={
+						isFetchingNextPage
+					}
+					hasNextPage={hasNextPage}
+					fetchNextPage={fetchNextPage}
+					noDataFound='No Faculties Found'
 					fixed
 					scrollHeight='650px'
 				/>
@@ -175,4 +228,4 @@ const AcademicBatchList: React.FC<Props> = ({
 	);
 };
 
-export default AcademicBatchList;
+export default FacultyList;

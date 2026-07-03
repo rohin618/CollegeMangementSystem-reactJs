@@ -59,3 +59,23 @@ export const SUBJECT_TYPE = {
   THEORY: 'THEORY',
   PRACTICAL: 'PRACTICAL',
 } as const;
+
+
+export const STUDENT_STATUS = {
+  ACTIVE: 'ACTIVE',
+	INACTIVE: 'INACTIVE',
+	GRADUATED: 'GRADUATED',
+	DISCONTINUED: 'DISCONTINUED',
+} as const;
+
+export const GENDER_TYPE = {
+  MALE: 'MALE',
+	FEMALE: 'FEMALE',
+	OTHER: 'OTHER',
+} as const;
+export const FACULTY_STATUS = {
+	ACTIVE: 'ACTIVE',
+	INACTIVE: 'INACTIVE',
+	RETIRED: 'RETIRED',
+	RESIGNED: 'RESIGNED',
+} as const;

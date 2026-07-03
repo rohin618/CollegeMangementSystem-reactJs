@@ -244,6 +244,23 @@ export const pagesMenu = {
 		],
 		subMenu: null,
 	},
+student: {
+	id: 'student',
+	text: 'Students',
+	path: 'studentPage',
+	icon: 'Groups',
+	roles: [],
+	subMenu: null,
+},
+
+faculty: {
+	id: 'faculty',
+	text: 'Faculty Members',
+	path: 'facultyPage',
+	icon: 'Badge',
+	roles: [],
+	subMenu: null,
+},
 
 
 	academicManagement: {

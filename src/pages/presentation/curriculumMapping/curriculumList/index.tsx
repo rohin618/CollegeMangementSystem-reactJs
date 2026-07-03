@@ -36,7 +36,7 @@ const CurriculumList: React.FC<Props> = ({
 	onDelete = () => {},
 }) => {
 
-    console.log(curriculums,'curriculums--------')
+
 	const columns = [
 		{
 			label: 'Department',

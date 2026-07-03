@@ -74,21 +74,29 @@ const CurriculumPage = () => {
 	const { data: departments = [] } = useQuery({
 		queryKey: [QUERY_KEY.ALL_DEPARTMENTS],
 		queryFn: getAllDepartments,
+		staleTime: 3 * 60 * 1000,
+		gcTime: 3 * 60 * 1000,
 	});
 
 	const { data: academicBatches = [] } = useQuery({
 		queryKey: [QUERY_KEY.ALL_ACADEMIC_BATCHES],
 		queryFn: getAllAcademicBatches,
+		staleTime: 3 * 60 * 1000,
+		gcTime: 3 * 60 * 1000,
 	});
 
 	const { data: subjects = [] } = useQuery({
 		queryKey: [QUERY_KEY.ALL_SUBJECTS],
 		queryFn: getAllSubjects,
+		staleTime: 3 * 60 * 1000,
+		gcTime: 3 * 60 * 1000,
 	});
 
 	const { data: semesters = [] } = useQuery({
 		queryKey: [QUERY_KEY.ALL_SEMESTERS],
 		queryFn: getAllSemesters,
+		staleTime: 3 * 60 * 1000,
+		gcTime: 3 * 60 * 1000,
 	});
 
 	/*

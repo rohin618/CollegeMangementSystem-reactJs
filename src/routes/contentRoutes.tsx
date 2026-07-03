@@ -18,6 +18,8 @@ const AcademicBatchPage = lazy(() => import('../pages/presentation/academicManag
 const SemesterPage = lazy(() => import('../pages/presentation/academicManagement/semester'));
 const SubjectPage = lazy(() => import('../pages/presentation/academicManagement/subjects'));
 const CurriculumPage = lazy(() => import('../pages/presentation/curriculumMapping'));
+const StudentPage = lazy(() => import('../pages/presentation/student'));
+const FacultyPage = lazy(() => import('../pages/presentation/faculty'));
 
 const presentation: AppRoute[] = [
 	{ path: authMenu.login.path, element: <Login />, isPublic: true },
@@ -33,6 +35,8 @@ const presentation: AppRoute[] = [
 	{ path: pagesMenu.academicManagement.subMenu.academicBatch.path, element: <AcademicBatchPage/>, isPublic: false },
 	{ path: pagesMenu.academicManagement.subMenu.semester.path, element: <SemesterPage/>, isPublic: false },
 	{ path: pagesMenu.academicManagement.subMenu.subjects.path, element: <SubjectPage/>, isPublic: false },
+	{ path: pagesMenu.student.path, element: <StudentPage/>, isPublic: false },
+	{ path: pagesMenu.faculty.path, element: <FacultyPage/>, isPublic: false },
 ];
 
 export default presentation;
